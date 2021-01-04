@@ -3,8 +3,8 @@
 Color backgroundColor;
 Color playerColor;
 
-const int playerHeight = 20;
-const int playerWidth = 5;
+const int playerHeight = 60;
+const int playerWidth = 10;
 const int playerDistanceFromSide = 10;
 
 Box playerOne;
@@ -36,11 +36,11 @@ void initialize() {
 
     playerOne_x = playerDistanceFromSide;
     playerOne_y = (SCREEN_HEIGHT) / 2 - (playerHeight / 2);
-    playerOne = createBox(playerColor, playerOne_x, playerOne_y, playerOne_x + playerWidth, playerOne_y + playerWidth);
+    playerOne = createBox(playerColor, playerOne_x, playerOne_y, playerOne_x + playerWidth, playerOne_y + playerHeight);
 
     playerTwo_x = SCREEN_WIDTH - playerDistanceFromSide - playerWidth;
     playerTwo_y = (SCREEN_HEIGHT) / 2 - (playerHeight / 2);
-    playerTwo = createBox(playerColor, playerTwo_x, playerTwo_y, playerTwo_x + playerWidth, playerTwo_y + playerWidth);
+    playerTwo = createBox(playerColor, playerTwo_x, playerTwo_y, playerTwo_x + playerWidth, playerTwo_y + playerHeight);
 }
 
 void update() {
