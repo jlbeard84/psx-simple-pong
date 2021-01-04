@@ -44,6 +44,21 @@ void initialize() {
 }
 
 void update() {
+    padUpdate();
+
+    if (padCheck(Pad1Up)) {
+        playerOne_y -= 2;
+        playerOne_y = playerOne_y < 0 ? 0 : playerOne_y;
+
+        playerOne = moveBox(playerOne, playerOne_x, playerOne_y);
+    }
+
+    if (padCheck(Pad1Down)) {
+        playerOne_y += 2;
+        playerOne_y = playerOne_y + playerHeight > SCREEN_HEIGHT ? SCREEN_HEIGHT - playerHeight : playerOne_y;
+
+        playerOne = moveBox(playerOne, playerOne_x, playerOne_y);
+    }
 
 }
 
