@@ -88,6 +88,28 @@ void update() {
     ball_x = ball_x + ball_x_dir * ball_speed;
     ball_y = ball_y + ball_y_dir * ball_speed;
 
+    if (ball_x < 0)
+    {
+        ball_x = 0;
+        ball_x_dir = ball_x_dir * -1;
+    }
+    else if (ball_x + ballWidth > SCREEN_WIDTH)
+    {
+        ball_x = SCREEN_WIDTH - ballWidth;
+        ball_x_dir = ball_x_dir * -1;
+    }
+
+    if (ball_y < 0)
+    {
+        ball_y = 0;
+        ball_y_dir = ball_y_dir * -1;
+    }
+    else if (ball_y + ballHeight > SCREEN_HEIGHT)
+    {
+        ball_y = SCREEN_HEIGHT - ballHeight;
+        ball_y_dir = ball_y_dir * -1;
+    }
+
     ball = moveBox(ball, ball_x, ball_y);
 }
 
