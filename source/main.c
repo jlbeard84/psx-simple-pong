@@ -1,11 +1,17 @@
+#include <stdlib.h>
 #include "constants.h"
 
 Color backgroundColor;
 Color playerColor;
+Color ballColor;
 
 const int playerHeight = 60;
 const int playerWidth = 10;
 const int playerDistanceFromSide = 10;
+const float ballSpeedProgression = 1.0f;
+
+const int ballHeight = 5;
+const int ballWidth = 5;
 
 Box playerOne;
 int playerOne_x;
@@ -14,6 +20,14 @@ int playerOne_y;
 Box playerTwo;
 int playerTwo_x;
 int playerTwo_y;
+
+// yes, we're using a square as the ball
+Box ball;
+float ball_x;
+float ball_y;
+float ball_speed;
+float ball_x_dir;
+float ball_y_dir;
 
 int main() {
     initialize();
@@ -29,10 +43,13 @@ void initialize() {
     initializeScreen();
     initializePad();
 
+    initializeRand();
+
     backgroundColor = createColor(0, 0, 0);
     setBackgroundColor(backgroundColor);
 
     playerColor = createColor(255, 255, 255);
+    ballColor = createColor(255, 255, 255);
 
     playerOne_x = playerDistanceFromSide;
     playerOne_y = (SCREEN_HEIGHT) / 2 - (playerHeight / 2);
@@ -41,6 +58,14 @@ void initialize() {
     playerTwo_x = SCREEN_WIDTH - playerDistanceFromSide - playerWidth;
     playerTwo_y = (SCREEN_HEIGHT) / 2 - (playerHeight / 2);
     playerTwo = createBox(playerColor, playerTwo_x, playerTwo_y, playerTwo_x + playerWidth, playerTwo_y + playerHeight);
+
+    ball_x = SCREEN_WIDTH / 2 - ballWidth / 2;
+    ball_y = SCREEN_HEIGHT / 2 - ballHeight / 2;
+    ball = createBox(ballColor, ball_x, ball_y, ball_x + ballWidth, ball_y + ballHeight);
+    ball_speed = ballSpeedProgression;
+
+    ball_x_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
+    ball_y_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
 }
 
 void update() {
@@ -60,9 +85,14 @@ void update() {
         playerOne = moveBox(playerOne, playerOne_x, playerOne_y);
     }
 
+    ball_x = ball_x + ball_x_dir * ball_speed;
+    ball_y = ball_y + ball_y_dir * ball_speed;
+
+    ball = moveBox(ball, ball_x, ball_y);
 }
 
 void draw() {
     drawBox(playerOne);
     drawBox(playerTwo);
+    drawBox(ball);
 }

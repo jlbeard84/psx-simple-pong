@@ -100,7 +100,6 @@ Box moveBox(Box box, int x1, int y1) {
 	return box;
 }
 
-
 void drawLine(Line line) {
 	DrawPrim(&line.line);
 }
@@ -154,6 +153,10 @@ void initializeDebugFont() {
 
 void initializeOrderingTable(GsOT* orderingTable){
 	GsClearOt(0,0,&orderingTable[GsGetActiveBuff()]);
+}
+
+void initializeRand() {
+    srand(GetRCnt(0));
 }
 
 void display() {
