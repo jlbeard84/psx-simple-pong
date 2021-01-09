@@ -8,7 +8,8 @@ Color ballColor;
 const int playerHeight = 60;
 const int playerWidth = 10;
 const int playerDistanceFromSide = 10;
-const float ballSpeedProgression = 1.0f;
+const float initialBallSpeed = 1.0f;
+const float ballSpeedProgression = 1.2f;
 
 const int ballHeight = 5;
 const int ballWidth = 5;
@@ -62,7 +63,7 @@ void initialize() {
     ball_x = SCREEN_WIDTH / 2 - ballWidth / 2;
     ball_y = SCREEN_HEIGHT / 2 - ballHeight / 2;
     ball = createBox(ballColor, ball_x, ball_y, ball_x + ballWidth, ball_y + ballHeight);
-    ball_speed = ballSpeedProgression;
+    ball_speed = initialBallSpeed;
 
     ball_x_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
     ball_y_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
@@ -91,23 +92,27 @@ void update() {
     if (ball_x < 0)
     {
         ball_x = 0;
-        ball_x_dir = ball_x_dir * -1;
+        ball_x_dir *= -1;
+        ball_speed *= ballSpeedProgression;
     }
     else if (ball_x + ballWidth > SCREEN_WIDTH)
     {
         ball_x = SCREEN_WIDTH - ballWidth;
-        ball_x_dir = ball_x_dir * -1;
+        ball_x_dir *= -1;
+        ball_speed *= ballSpeedProgression;
     }
 
     if (ball_y < 0)
     {
         ball_y = 0;
-        ball_y_dir = ball_y_dir * -1;
+        ball_y_dir *= -1;
+        ball_speed *= ballSpeedProgression;
     }
     else if (ball_y + ballHeight > SCREEN_HEIGHT)
     {
         ball_y = SCREEN_HEIGHT - ballHeight;
-        ball_y_dir = ball_y_dir * -1;
+        ball_y_dir *= -1;
+        ball_speed *= ballSpeedProgression;
     }
 
     ball = moveBox(ball, ball_x, ball_y);
