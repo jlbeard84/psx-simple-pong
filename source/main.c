@@ -60,13 +60,9 @@ void initialize() {
     playerTwo_y = (SCREEN_HEIGHT) / 2 - (playerHeight / 2);
     playerTwo = createBox(playerColor, playerTwo_x, playerTwo_y, playerTwo_x + playerWidth, playerTwo_y + playerHeight);
 
-    ball_x = SCREEN_WIDTH / 2 - ballWidth / 2;
-    ball_y = SCREEN_HEIGHT / 2 - ballHeight / 2;
-    ball = createBox(ballColor, ball_x, ball_y, ball_x + ballWidth, ball_y + ballHeight);
-    ball_speed = initialBallSpeed;
+    ball = createBox(ballColor, 0, 0, ballWidth, ballHeight);
 
-    ball_x_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
-    ball_y_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
+    resetBall();
 }
 
 void update() {
@@ -91,15 +87,11 @@ void update() {
 
     if (ball_x < 0)
     {
-        ball_x = 0;
-        ball_x_dir *= -1;
-        ball_speed *= ballSpeedProgression;
+        resetBall();
     }
     else if (ball_x + ballWidth > SCREEN_WIDTH)
     {
-        ball_x = SCREEN_WIDTH - ballWidth;
-        ball_x_dir *= -1;
-        ball_speed *= ballSpeedProgression;
+        resetBall();
     }
 
     if (ball_y < 0)
@@ -122,4 +114,14 @@ void draw() {
     drawBox(playerOne);
     drawBox(playerTwo);
     drawBox(ball);
+}
+
+void resetBall() {
+    ball_x = SCREEN_WIDTH / 2 - ballWidth / 2;
+    ball_y = SCREEN_HEIGHT / 2 - ballHeight / 2;
+    ball = createBox(ballColor, ball_x, ball_y, ball_x + ballWidth, ball_y + ballHeight);
+    ball_speed = initialBallSpeed;
+
+    ball_x_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
+    ball_y_dir = (((float)rand()/(float)RAND_MAX) * 2.0) - 1.0;
 }
